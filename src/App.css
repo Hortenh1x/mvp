@@ -1,53 +1,151 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  max-width: 100%;
+  padding: 0;
 }
 
 .App-header {
   background-color: #282c34;
-  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px;
 }
-
-/* .App-footer {
-  background-color: #0a48c4;
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
 
 .Main-content {
   border: #61dafb;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.Task {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.Task div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.Task p {
+  flex: 1;
+  margin: 0;
+  min-width: 150px;
+}
+
+.Task input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.Task button,
+.SubmitTaskBtn {
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background-color: #61dafb;
+  border-radius: 5px;
+  min-width: 80px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+form label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+}
+
+form input[type="text"],
+form input[name="taskName"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .App-header {
+    font-size: calc(8px + 4vmin);
+    padding: 15px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .Task div {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .Task p {
+    min-width: 100%;
+  }
+
+  .Task input[type="checkbox"],
+  .Task button {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .Main-content {
+    padding: 10px;
+  }
+
+  form {
+    padding: 15px;
+  }
+
+  .SubmitTaskBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .App-header {
+    font-size: calc(6px + 5vmin);
+    padding: 10px;
+  }
+
+  .Task div {
+    padding: 8px;
+  }
+
+  .Task p {
+    font-size: 14px;
+  }
+
+  button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  form label {
+    font-size: 14px;
+  }
+
+  form input[type="text"],
+  form input[name="taskName"] {
+    font-size: 16px;
+    padding: 12px;
   }
 }

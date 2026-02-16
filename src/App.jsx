@@ -2,9 +2,11 @@ import './App.css';
 import TaskClass from "./Task.jsx";
 import { useState} from 'react';
 import { createRoot } from 'react-dom/client';
+import React from "react";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [filtered, setFiltered] = useState(false);
   return (
     <div className="App">
       <header className="App-header">
@@ -12,36 +14,46 @@ function App() {
         <h2>My Todos</h2>
       </header>
       <div calssName="Main-content">
-        <TaskList tasks={tasks}/>
+        <button onClick={() => setFiltered(true)}>Filter tasks</button>
+        <button onClick={() => setFiltered(false)}>Unfilter</button>
+        <p>{getFiltered(filtered)}</p>
+        <TaskList tasks={tasks} setTasks={setTasks} filtered={filtered}/>
         <AddTask onAddTask={(task) => setTasks(prev => [...prev, task])}/>
       </div>
     </div>
   );
 }
 
-function TaskList({tasks}){
+function TaskList({tasks, setTasks, filtered}){
   const [isChecked, setIsChecked] = useState(false);
   const [isDeleted, setDeleted] = useState(false);
+
   const handleCheckboxChange = (index) => {
     setIsChecked(tasks[index].getDone());
     tasks[index].setDone();
+    setTasks([...tasks]);
   };
+
   const handleDelete = (index) => {
     if(tasks[index].getDone() === false){
       setDeleted(true);
       tasks.splice(index, 1);
-      // onDeleteTask(tasks[index]);
+      setTasks([...tasks]);
     }
   }
+
+  const displayTasks = filtered ? tasks.filter(item => item.getDone() === true) : tasks;
+
   return (
     <div className = "Task">
-      {tasks.map((task, index) => <div><p key={index}>{task.getTitle()}, {task.getDoneText()}</p>
-                                       <input type="checkbox" key={index} checked={task.getDone()} onChange={() => handleCheckboxChange(index)}/>
-                                       <button key={index} onClick={() => handleDelete(index)}>Delete</button>
-                                       </div>)}
+      {displayTasks.map((task, index) => <div><p key={index}>{task.getTitle()}, {task.getDoneText()}</p>
+                                    <input type="checkbox" key={index} checked={task.getDone()} onChange={() => handleCheckboxChange(index)}/>
+                                    <label>Mark task</label>
+                                    <button key={index} onClick={() => handleDelete(index)}>Delete</button>
+                                    </div>)}
     </div>
   )
-}
+  }
 
 function AddTask({onAddTask}){
   const createTask = (e) => {
@@ -61,8 +73,13 @@ function AddTask({onAddTask}){
   )
 }
 
-function FilterTasks({tasks}){
-  tasks.filter(item => item.getDone() === true)
+function getFiltered(filtered){
+  if(filtered){
+    return "Filtered"
+  }
+  else{
+    return "Unfiltered"
+  }
 }
 
 createRoot(document.getElementById('root')).render(
