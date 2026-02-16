@@ -2,7 +2,6 @@ import './App.css';
 import TaskClass from "./Task.jsx";
 import { useState} from 'react';
 import { createRoot } from 'react-dom/client';
-import React from "react";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -47,10 +46,10 @@ function TaskList({tasks, setTasks, filtered}){
   return (
     <div className = "Task">
       {displayTasks.map((task, index) => <div><p key={index}>{task.getTitle()}, {task.getDoneText()}</p>
-                                    <input type="checkbox" key={index} checked={task.getDone()} onChange={() => handleCheckboxChange(index)}/>
-                                    <label>Mark task</label>
-                                    <button key={index} onClick={() => handleDelete(index)}>Delete</button>
-                                    </div>)}
+                                              <input type="checkbox" key={index} checked={task.getDone()} onChange={() => handleCheckboxChange(index)}/>
+                                              <label>Mark task</label>
+                                              <button key={index} onClick={() => handleDelete(index)}>Delete</button>
+                                         </div>)}
     </div>
   )
   }
